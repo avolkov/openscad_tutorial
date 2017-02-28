@@ -1,13 +1,18 @@
 
 module plate(length, width, thickness) {
     difference() {
-        cube([6,6,1]);
-        translate([3, 3, 0]){
+        cube([length, width, thickness]);
+        translate([length/2, width/2, 0]){
             cylinder(r=1, h=1, $fn = 30);
         }
     }
 }
 
-rotate(a=0, v=[0, 0, 1]) {
-    translate([-3, -3, 0]) plate();
+module bracket(length, width, thickness){
+    plate(length, width, thickness);
+    rotate(a=90, v=[1, 0, 0]) {
+        plate(length, width+thickness, thickness);
+    }
 }
+
+bracket(6,6,0.5);
